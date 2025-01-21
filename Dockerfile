@@ -1,11 +1,10 @@
-FROM alpine:3.16
+FROM alpine:3.19
 LABEL maintainer="Walter Leibbrandt"
 LABEL version="0.4.3"
 # XXX Copy version to Docker image tag in .github/workflows/docker.yml when changing!
 
 EXPOSE 8080
 
-ARG PVPN_CLI_VER=2.2.12
 ENV PVPN_USERNAME= \
     PVPN_USERNAME_FILE= \
     PVPN_PASSWORD= \
@@ -22,6 +21,6 @@ COPY pvpn-cli /root/.pvpn-cli
 
 RUN apk --update add coreutils openvpn privoxy procps python3 runit git \
     && python3 -m ensurepip \
-    && pip3 install git+https://github.com/Rafficer/linux-cli-community.git@v$PVPN_CLI_VER
+    && pip3 install protonvpn-cli
 
 CMD ["runsvdir", "/app"]
